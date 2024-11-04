@@ -1,0 +1,91 @@
+#include <iostream>
+#include <fstream>
+
+using namespace std;
+
+int opMenu;
+float n1, n2, n3, promedio;
+void menu();
+void bermudez_ingNotas();
+void bermudez_guardarArchivo();
+
+int main() {
+    menu();
+    return 0;
+}
+
+void menu() {
+    do {
+        cout << "===========MENU==========" << endl;
+        cout << "1. Ingresar notas" << endl;
+        cout << "2. Guardar archivo" << endl;
+        cout << "3. Salir" << endl;
+        cout << "Ingrese una opcion del menu : " << endl;
+        cin >> opMenu;
+
+        switch (opMenu) {
+        case 1:
+            bermudez_ingNotas();
+            break;
+        case 2:
+            bermudez_guardarArchivo();
+            break;
+        case 3:
+            cout << "Gracias por usar el programa :)" << endl;
+            break;
+        default:
+            cout << "Ingrese una opcion valida del menu: " << endl;
+        }
+    } while (opMenu != 3);
+}
+
+void bermudez_ingNotas() {
+    cout << "Ingrese la nota 1: " << endl;
+    cin >> n1;
+    while (n1 < 0 || n1 > 20) {
+        cout << "Ingrese un numero valido entre 0 y 20: " << endl;
+        cin >> n1;
+    }
+    cout << "Ingrese la nota 2: " << endl;
+    cin >> n2;
+    while (n2 < 0 || n2 > 20) {
+        cout << "Ingrese un numero valido entre 0 y 20: " << endl;
+        cin >> n2;
+    }
+    cout << "Ingrese la nota 3: " << endl;
+    cin >> n3;
+    while (n3 < 0 || n3 > 20) {
+        cout << "Ingrese un numero valido entre 0 y 20: " << endl;
+        cin >> n3;
+    }
+    promedio = (n1 + n2 + n3) / 3;
+    if (promedio < 14) {
+        cout << "Reprobado" << endl;
+    } else {
+        cout << "Aprobado" << endl;
+    }
+}
+
+void bermudez_guardarArchivo() {
+
+    ofstream archivo("notas.txt");
+
+    if (archivo.is_open()) {
+        archivo << "Notas ingresadas:\n";
+        archivo << "Nota 1: " << n1 << endl;
+        archivo << "Nota 2: " << n2 << endl;
+        archivo << "Nota 3: " << n3 << endl;
+        archivo << "Promedio: " << promedio << endl;
+
+        if (promedio < 14) {
+            archivo << "Estado: Reprobado" << endl;
+        } else {
+            archivo << "Estado: Aprobado" << endl;
+        }
+
+        archivo.close();
+        cout << "Datos guardados correctamente en notas.txt" << endl;
+    } else {
+        cout << "Error al abrir el archivo para guardar los datos." << endl;
+    }
+}
